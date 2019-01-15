@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Lista dos Estabelecimentos</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	 crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+	 crossorigin="anonymous"></script>
+	 <script>
+		function atualizarRoute(cadastro_id) {
+			console.log(cadastro_id);
+			redirect('/');
+		}
+
+		function removerRoute(cadastro_id) {
+			console.log(cadastro_id);
+			redirect('/remover/' + cadastro_id);
+		}
+	 </script>
+</head>
+<body>
+	<!-- Menu -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark " id="mainNav">
+			<div class="container">
+				<h4 class="navbar-brand js-scroll-trigger nav justify-content-center">FitCard</h4>
+				<div class="navbar-collapse collapse">
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item">
+						<h4 class="nav justify-content-center nav-link js-scroll-trigger">Estabelecimentos</h4>
+						</li>
+					</ul>
+				</div>
+				
+				<div class="navbar-collapse  sidenav" id="mySidenav">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+					<a class="nav-link js-scroll-trigger" href="http://localhost:3000/">Início</a>
+					</li>
+					<li class="nav-item">
+					<a class="nav-link js-scroll-trigger" href="http://localhost:3000/cadastrar-estabelecimento">Cadastrar</a>
+					</li>
+				</ul>
+				</div>
+			</div>
+			</nav>
+		<!-- Menu -->
+
+	<section>
+		<div class="card">
+			<p class="card-header text-center font-weight-bold py-4">Estão listados todos os Estabelecimentos ativos.</p>
+			<div class="card-body">
+			  <div id="table" class="table-editable">
+				<span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i class="fas fa-plus fa-2x"
+					  aria-hidden="true"></i></a></span>
+				<table class="table table-bordered table-responsive-md table-striped text-center">
+				  <tr>
+					<th class="text-center">Razão Social</th>
+					<th class="text-center">Nome</th>
+					<th class="text-center">E-mail</th>
+					<th class="text-center">Estado</th>
+					<th class="text-center">Telefone</th>
+					<th class="text-center">Categoria</th>
+					<th class="text-center">Atualizar</th>
+					<th class="text-center">Remover</th>
+				  </tr>
+				  <% for(let i=0; i<cadastro.length; i++) {%>
+					<tr>
+						<td class="pt-3-half" contenteditable="true">
+							<%= cadastro[i].razao_social %>
+						</td>
+						<td class="pt-3-half" contenteditable="true">
+							<%= cadastro[i].nome %></a>
+						</td>
+						<td class="pt-3-half" contenteditable="true">
+							<%= cadastro[i].email %>
+						</td>
+						<td class="pt-3-half" contenteditable="true">
+							<%= cadastro[i].estado %>
+						</td>
+						<td class="pt-3-half" contenteditable="true">
+							<%= cadastro[i].telefone %>
+						</td>
+						<td class="pt-3-half" contenteditable="true">
+							<%= cadastro[i].categoria %>
+						</td>
+						<td>
+							<form method="GET" action="http://localhost:3000/alterar-cadastro/<%= cadastro[i].cadastro_id %>">
+								<span class="table-update"><input type="submit" class="btn btn-rounded btn-primary btn-sm my-0" value="Alterar"></span>
+							</form>							
+						</td>
+						<td>
+							<form method="GET" onsubmit="return confirm('Você quer realmente deletar esse Estabelecimento?');" action="http://localhost:3000/deletar-cadastro/<%= cadastro[i].cadastro_id %>">
+								<span class="table-remove"><input type="submit" class="btn btn-danger btn-rounded btn-sm my-0" value="Deletar"></span>
+							</form>
+						</td>
+					</tr>
+					<% } %>
+				</table>
+			</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+
+</html>
